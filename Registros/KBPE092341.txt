@@ -1,3 +1,0 @@
-RFC = KBPE092341
-Nombre = KARLA PEREZ
-No Empleado = 02
