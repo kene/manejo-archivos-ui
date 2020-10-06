@@ -685,16 +685,8 @@ public class Main extends javax.swing.JFrame {
         String nombreArchivo = selectedFile.getParent() + barra + selectedFile.getName();
         FileWriter writer = null;
         
-        try {            
-
-            writer = new FileWriter(nombreArchivo);
-                     
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Archivo No ha sido creado correctamente");
-        }
-        
-        
         try {
+            writer = new FileWriter(nombreArchivo);
             BufferedWriter escritor  = new BufferedWriter(writer);
             String texto = jTxtAreaModifica.getText();
             for(int i=0; i<texto.length();i++){
