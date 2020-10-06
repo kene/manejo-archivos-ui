@@ -1,0 +1,3 @@
+RFC = JOPB850221U01
+Nombre = JOSUE
+No Empleado = 04

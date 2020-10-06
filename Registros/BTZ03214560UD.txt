@@ -1,0 +1,3 @@
+RFC = BTZ03214560UR
+Nombre = Jose Dominguez
+No Empleado = 01
