@@ -24,8 +24,9 @@ import javax.swing.JOptionPane;
  */
 public class Main extends javax.swing.JFrame {
 
-    private CardLayout cardLayout;
-    private String barra = File.separator;
+    private CardLayout cardLayout; // objeto que contiene los demas paneles
+    private String barra = File.separator; // barra separadora de directorios
+    // variable que contiene la ubicacion del directorio donde se almacenaran los archivos
     private String ubicacion  = System.getProperty("user.dir") + barra + "Registros" + barra;
     
     
@@ -505,6 +506,10 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metodo que contraola el cambio al panel de registro de empleados
+     * @param evt 
+     */
     private void registrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarBtnActionPerformed
         panelCards.removeAll();
         panelCards.add(pnlRegistro);
@@ -512,6 +517,11 @@ public class Main extends javax.swing.JFrame {
         panelCards.revalidate();
     }//GEN-LAST:event_registrarBtnActionPerformed
 
+    /**
+     * Metodo que se encarga de cambiar al panel de abrir y buscar los archivos 
+     * registrados previamente en el directorio.
+     * @param evt 
+     */
     private void buscarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarBtnActionPerformed
         panelCards.removeAll();
         panelCards.add(pnlBuscar);
@@ -519,6 +529,11 @@ public class Main extends javax.swing.JFrame {
         panelCards.revalidate();
     }//GEN-LAST:event_buscarBtnActionPerformed
 
+    /**
+     * Metodo que busca los archivos que se encuentran ya creados en 
+     * el directorio actual
+     * @param evt 
+     */
     private void jBtnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSeleccionarActionPerformed
         buscar();
     }//GEN-LAST:event_jBtnSeleccionarActionPerformed
@@ -560,11 +575,19 @@ public class Main extends javax.swing.JFrame {
         }
     }
     
-    
+    /**
+     * Metodo que se encarga de registrar los datos de un empleado y crear un nuevo
+     * archivo con la informacion del empleado
+     * @param evt 
+     */
     private void jBtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegistrarActionPerformed
         crear();
     }//GEN-LAST:event_jBtnRegistrarActionPerformed
 
+    /**
+     * Metodo que maneja el cambio de panel para mostrar el panel de Renombrar archivos
+     * @param evt 
+     */
     private void renombrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_renombrarBtnActionPerformed
         panelCards.removeAll();
         panelCards.add(pnlRenombra);
@@ -572,6 +595,11 @@ public class Main extends javax.swing.JFrame {
         panelCards.revalidate();
     }//GEN-LAST:event_renombrarBtnActionPerformed
 
+    /**
+     * Metodo que se encarga de cambiar de panel para mostrar el 
+     * panel de Elimina Archivos
+     * @param evt 
+     */
     private void eliminaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminaBtnActionPerformed
         panelCards.removeAll();
         panelCards.add(pnlElimina);
@@ -579,17 +607,28 @@ public class Main extends javax.swing.JFrame {
         panelCards.revalidate();
     }//GEN-LAST:event_eliminaBtnActionPerformed
 
-    
+    // campo que mantiene la instancia de el archivo seleccionado cuando se abre 
+    //el cuadro de dialogo de JFileChooser
     private File selectedFile = new File("");
     
+    /**
+     * Metodo que se encarga de modificar la informacion de un archivo y guardar 
+     * los cambios realizados
+     * @param evt 
+     */
     private void jbtnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificaActionPerformed
+        // Objeto para abrir la ventana del directorio
         JFileChooser fc = new JFileChooser();
+        // se pone el directorio actual donde se almacenan los archivos
         fc.setCurrentDirectory(new File(ubicacion));  
+        // metodo que abre el cuadro de dialogo para seleccionar los archivos
         fc.showOpenDialog(null);
+        // recupera el archivo seleccionado
         selectedFile = fc.getSelectedFile();
         
         
         try {
+            // objeto que mantiene la instancia del archivo seleccionado
             FileReader fr = new FileReader(selectedFile);
             // buffer del reader para mantener la informacion
             BufferedReader br = new BufferedReader(fr);
@@ -619,16 +658,20 @@ public class Main extends javax.swing.JFrame {
      * @param evt 
      */
     private void jbtnElimina1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnElimina1ActionPerformed
+        // Objeto que se encarga de abrir la ventana de dialogo donde se 
+        // selecciona el archivo 
         JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File(ubicacion));  
+        // abre el cuadro de dialogo para seleccionar el archivo
         fc.showOpenDialog(null);
         
+        // mantiene la instancia del archivo seleccionado
         File archivo = fc.getSelectedFile();
         
         
-        if(archivo.delete()){
+        if(archivo.delete()){ // elimina el archivo y manda mensaje 
             JOptionPane.showMessageDialog(null, "El archivo ha sido borrado exitosamente");
-        }else{
+        }else{ // si el archivo no puede ser borrado manda mensaje de error
             JOptionPane.showMessageDialog(null, "El archivo no puede ser borrado");
         }
     }//GEN-LAST:event_jbtnElimina1ActionPerformed
@@ -637,7 +680,7 @@ public class Main extends javax.swing.JFrame {
     private File archivoSelected = new File("");
     
     /**
-     * Metodo que selecciona un archivo 
+     * Metodo que selecciona un archivo y coloca la ruta del archivo en un campo de texto
      * @param evt 
      */
     private void jBtnSelecionArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSelecionArchivoActionPerformed
@@ -647,7 +690,7 @@ public class Main extends javax.swing.JFrame {
         
         archivoSelected = fc.getSelectedFile();
         
-        jTxtArchivoRenombrar.setText(archivoSelected.getParent() + "\\" + archivoSelected.getName());
+        jTxtArchivoRenombrar.setText(archivoSelected.getParent() + barra + archivoSelected.getName());
         
     }//GEN-LAST:event_jBtnSelecionArchivoActionPerformed
 
@@ -656,18 +699,20 @@ public class Main extends javax.swing.JFrame {
      * @param evt 
      */
     private void jBtnCambiarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCambiarNombreActionPerformed
-        
+        // recupera el nuevo nombre del archivo y la ruta
         String nvo = archivoSelected.getParent() + barra + jTxtNuevoNombre.getText() + ".txt";
+        // asigna la nueva ruta y nombre a un objeto File
         File f2 = new File(nvo);
         
+        // renombra el archivo y si es correcto envia un mensaje
         boolean correcto = archivoSelected.renameTo(f2);
         
         
-        if(correcto == true){
+        if(correcto == true){// verifica que el archivo se renombro correctamente 
             JOptionPane.showMessageDialog(null, "El renombrado ha sido correcto");
             jTxtArchivoRenombrar.setText("");
             jTxtNuevoNombre.setText("");
-        }else{
+        }else{ // en caso que no se renombro el archivo correctament se envia un mensaje de error
             JOptionPane.showMessageDialog(null, "El renombrado no se ha podido realizar");
         }
         
@@ -680,25 +725,32 @@ public class Main extends javax.swing.JFrame {
      * @param evt 
      */
     private void jBtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModificarActionPerformed
-        // get the current file 
         
+        // recupera el nombre del archivo seleccionado
         String nombreArchivo = selectedFile.getParent() + barra + selectedFile.getName();
+        // crea un objeto writer para la lectura del contenido del archivo
         FileWriter writer = null;
         
         try {
+            // asigna la ruta del archivo y nombre al objeto writer para leer la informacion 
             writer = new FileWriter(nombreArchivo);
+            // objeto bufferedwriter que se usa para almacenar la informacion temporal del archivo
             BufferedWriter escritor  = new BufferedWriter(writer);
+            // recupera la informacion del text area 
             String texto = jTxtAreaModifica.getText();
+            // empieza la escritura de la informacion al archivo
             for(int i=0; i<texto.length();i++){
                 escritor.write(texto.charAt(i));
             
             }
-            
+            // cierra el objeto escritor
             escritor.close();
+            // envia mensaje de que la informacion ha sido modificada correctamente
             JOptionPane.showMessageDialog(null, "El archivo ha sido modificado");
+            // vuelve a reiniciar la informacion del text area
             jTxtAreaModifica.setText("");
             
-        } catch (IOException e) {
+        } catch (IOException e) { // si ocurre un error al leer la informacion envia un mensaje de error
             JOptionPane.showMessageDialog(null, "Archivo No ha sido creado correctamente");
         }
         
@@ -706,6 +758,10 @@ public class Main extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jBtnModificarActionPerformed
 
+    /**
+     * Metodo que se encarga de mostrar el panel de modifica archivo
+     * @param evt 
+     */
     private void ModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificaActionPerformed
         panelCards.removeAll();
         panelCards.add(pnlModifica);
